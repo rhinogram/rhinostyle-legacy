@@ -1,0 +1,146 @@
+//
+// Variables
+//
+
+
+@modal-backdrop-bg: fade(@global-color-black, 50%);
+
+@modal-content-bg: @global-color-white;
+@modal-content-border-color: @global-color-gray-lighter;
+
+@modal-footer-border-color: @modal-content-border-color;
+@modal-header-border-color: @modal-content-border-color;
+@modal-inner-padding: @global-whitespace-base;
+
+@modal-large: 90rem;
+@modal-medium: 60rem;
+@modal-small: 30rem;
+
+@modal-header-line-height: @base-heading-line-height;
+
+@modal-zindex: 1020;
+
+
+//
+// Component
+//
+
+
+//
+// Modal Open State
+//
+
+
+// Class added to body
+.modal-open {
+  overflow: hidden;
+}
+
+
+//
+// Modal
+//
+
+// 1. JS styles
+.modal {
+  background: @modal-backdrop-bg;
+  bottom: 0;
+  display: none; // 1
+  left: 0;
+  opacity: 0; // 1
+  overflow-y: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: @modal-zindex;
+}
+
+
+//
+// Modal Content
+//
+
+// 1. JS styles
+.modal__dialog {
+  -webkit-overflow-scrolling: touch;
+  background-color: @modal-content-bg;
+  border: 1px solid @modal-content-border-color;
+  border-radius: @global-border-radius;
+  box-shadow: @global-shadow-depth-3;
+  margin: @global-whitespace-base;
+  opacity: 0; // 1
+  transform: translateY(25%); // 1
+  transform-origin: center bottom; // 1
+  z-index: @modal-zindex;
+
+  @media (min-width: @global-screen-small-min) {
+    margin: @global-whitespace-large auto;
+    width: @modal-medium;
+  }
+}
+
+.modal__dialog--small {
+  @media (min-width: @global-screen-small-min) {
+    width: @modal-small;
+  }
+}
+
+.modal__container--large {
+  @media (min-width: @global-screen-medium-min) {
+    width: @modal-large;
+  }
+}
+
+
+//
+// Modal Header
+//
+
+
+.modal__header {
+  border-bottom: 2px solid @modal-header-border-color;
+  display: flex;
+  padding: @modal-inner-padding;
+}
+
+.modal__header__close {
+  font-size: 2rem;
+  margin-left: auto;
+  top: 0;
+}
+
+.modal__header__title {
+  .u-text-overflow;
+
+  align-items: center;
+  display: flex;
+  line-height: @global-line-height-small;
+  margin: 0;
+  padding-right: @global-whitespace-base;
+}
+
+.modal__header__title__icon {
+  margin-right: @global-whitespace-small;
+}
+
+
+//
+// Modal Body
+//
+
+
+.modal__body {
+  padding: @modal-inner-padding;
+  position: relative;
+}
+
+
+//
+// Modal Footer
+//
+
+
+.modal__footer {
+  padding: @modal-inner-padding;
+  text-align: right;
+}

@@ -1,0 +1,429 @@
+//
+// Variables
+//
+
+
+@dropdown-arrow-size: 1rem;
+@dropdown-bg: @global-color-white;
+@dropdown-border: @global-border-color-base;
+@dropdown-chevron-size: 0.7em;
+@dropdown-divider-bg: @global-border-color-light;
+@dropdown-header-color: @global-font-color;
+@dropdown-link-color: @global-font-color;
+@dropdown-link-hover-color: darken(@global-font-color, 5%);
+@dropdown-link-hover-bg: @global-color-gray-lightest;
+@dropdown-link-active-color: @global-component-active-color;
+@dropdown-link-active-bg: @global-component-active-bg;
+@dropdown-link-disabled-color: @global-color-gray-light;
+@dropdown-menu-offset: @global-whitespace-small;
+@dropdown-menu-shadow: @global-shadow-depth-1;
+@dropdown-padding-horizontal: (@global-whitespace-small + @global-whitespace-xsmall);
+@dropdown-padding-vertical: @global-whitespace-small;
+@dropdown-padding: @dropdown-padding-vertical @dropdown-padding-horizontal;
+
+@dropdown-zindex: 1030;
+
+
+//
+// Component
+//
+
+
+.dropdown {
+  display: inline-flex;
+  max-width: 100%;
+  position: relative;
+  vertical-align: middle;
+}
+
+
+//
+// Dropdown Modifier (Block)
+//
+
+
+.dropdown--block {
+  width: 100%;
+
+  .button__text-wrapper {
+    justify-content: flex-start;
+  }
+
+  .dropdown__toggle {
+    width: 100%;
+
+    .dropdown__toggle__caret {
+      margin-left: auto;
+    }
+  }
+
+  // 1. Override `scale` attached to other dropdowns
+  .dropdown__menu {
+    min-width: 100%;
+    transform-origin: center top;
+    transform: translateY(-@dropdown-menu-offset);
+  }
+}
+
+
+//
+// Dropdown Modifier (Multiselect)
+//
+
+
+.dropdown--multiselect {
+  .mixin-chevron-down(); // add chevron
+
+  .dropdown__menu__item.is-active > .dropdown__menu__item__link {
+    padding-right: 3.6rem;
+
+    &,
+    &:focus {
+      background: lighten(@dropdown-link-hover-bg, 1%);
+      color: @dropdown-link-color;
+
+      &::after {
+        background-image: url('@{svg-sprite}#icon-checkmark-circle');
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: 2rem 2rem;
+        content: '';
+        fill: @global-color-primary;
+        height: 2rem;
+        pointer-events: none;
+        position: absolute;
+        right: (@global-whitespace-small + @global-whitespace-xsmall);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 2rem;
+      }
+    }
+
+    &:hover {
+      background: lighten(@dropdown-link-hover-bg, 1%);
+      color: @dropdown-link-color;
+    }
+  }
+}
+
+
+//
+// Dropdown Menu
+//
+
+// 1. JS styles
+.dropdown__menu {
+  background-color: @dropdown-bg;
+  border: 1px solid @dropdown-border;
+  border-radius: @global-border-radius;
+  box-shadow: @dropdown-menu-shadow;
+  display: none; // 1
+  left: 0;
+  max-width: 28rem;
+  opacity: 0; // 1
+  padding: @global-whitespace-xsmall 0;
+  position: absolute;
+  text-align: left;
+  top: ~'calc(100% + @{dropdown-menu-offset})';
+  transform: translateY(-@dropdown-menu-offset) scale(0.75);
+  transform-origin: left top;
+  z-index: @dropdown-zindex;
+
+  &::before {
+    background: @dropdown-bg;
+    border: 1px solid @dropdown-border;
+    border-bottom-left-radius: @global-border-radius;
+    border-right: 0;
+    border-top: 0;
+    content: '';
+    height: @dropdown-arrow-size;
+    left: @dropdown-arrow-size;
+    position: absolute;
+    top: (-@dropdown-arrow-size / 2);
+    transform: rotate(135deg);
+    width: @dropdown-arrow-size;
+  }
+
+  &:not(.dropdown__menu--top)::before {
+    margin-top: -0.1rem;
+  }
+
+  &.dropdown__menu--top::before {
+    margin-bottom: -0.1rem;
+  }
+
+  @media (min-width: @global-screen-xsmall-min) {
+    max-width: 44rem;
+  }
+}
+
+
+//
+// Dropdown Menu Modifiers
+//
+
+
+.dropdown__menu--right {
+  left: auto;
+  right: 0;
+  transform-origin: right top;
+
+  &::before {
+    left: auto;
+    right: @dropdown-arrow-size;
+  }
+}
+
+.dropdown__menu--center {
+  left: 50%;
+  transform: translate(-50%, -@dropdown-menu-offset) scale(0.75);
+  transform-origin: center top;
+
+  &::before {
+    left: 50%;
+    margin-left: (-@dropdown-arrow-size / 2);
+  }
+}
+
+.dropdown__menu--top {
+  bottom: ~'calc(100% + @{dropdown-menu-offset})';
+  top: auto;
+  transform: translateY(@dropdown-menu-offset) scale(0.75);
+  transform-origin: left bottom;
+
+  &::before {
+    bottom: (-@dropdown-arrow-size / 2);
+    top: auto;
+    transform: rotate(-45deg);
+  }
+
+  &.dropdown__menu--right {
+    transform-origin: right bottom;
+  }
+
+  &.dropdown__menu--center {
+    transform: translate(-50%, @dropdown-menu-offset) scale(0.75);
+    transform-origin: center bottom;
+  }
+}
+
+.dropdown__menu--wide {
+  min-width: 26rem;
+}
+
+
+//
+// Dropdown Menu Item
+//
+
+
+.dropdown__menu__item {
+  position: relative; // needed for active state with checkmark
+
+  // Active state
+  &.is-active > .dropdown__menu__item__link {
+    &,
+    &:hover,
+    &:focus {
+      background-color: @dropdown-link-active-bg;
+      color: @dropdown-link-active-color;
+      outline: 0;
+      text-decoration: none;
+    }
+  }
+
+  // Disabled state
+  &.is-disabled > .dropdown__menu__item__link {
+    &,
+    &:hover,
+    &:focus {
+      color: @dropdown-link-disabled-color;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+  }
+}
+
+
+//
+// Dropdown Menu Item Link
+//
+
+
+.dropdown__menu__item__link {
+  color: @dropdown-link-color;
+  cursor: pointer;
+  display: block;
+  font-weight: normal;
+  line-height: @global-line-height-base;
+  padding: @dropdown-padding;
+
+  &:hover,
+  &:focus {
+    background-color: @dropdown-link-hover-bg;
+    color: @dropdown-link-hover-color;
+    outline: 0;
+    text-decoration: none;
+  }
+}
+
+
+//
+// Dropdown Menu Item Content
+//
+
+
+.dropdown__menu__item__content {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+
+//
+// Dropdown Menu Item Content Container
+//
+// Isolates label and desc from avatar for alignment
+// Also allows for text overflow of label but not description
+
+
+.dropdown__menu__item__content__container {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+//
+// Dropdown Menu Item Content Description
+//
+
+
+.dropdown__menu__item__content__desc {
+  font-size: 1.4rem;
+  //min-width: 20rem;
+  opacity: 0.8;
+}
+
+
+//
+// Dropdown Menu Item Content Label
+//
+
+
+.dropdown__menu__item__content__label {
+  align-items: center;
+  display: flex;
+}
+
+
+//
+// Dropdown Menu Container
+//
+// Simply gives same padding as links.
+
+
+.dropdown__menu__container {
+  padding: @dropdown-padding;
+}
+
+
+//
+// Dropdown Menu Header
+//
+
+
+.dropdown__menu__header {
+  color: @dropdown-header-color;
+  display: block;
+  font-size: @global-font-size-xsmall;
+  text-transform: uppercase;
+  font-weight: @global-font-weight-bold;
+  line-height: @global-line-height-small;
+  padding: @dropdown-padding;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+//
+// Dropdown Menu Divider
+//
+
+
+.dropdown__menu__divider {
+  background-color: @global-color-gray-lighter;
+  height: 0.1rem;
+  margin: @global-whitespace-xsmall 0;
+  overflow: hidden;
+}
+
+
+//
+// Dropdown Menu Scroll
+//
+// Scrollable menu content
+
+
+// 1. Fixes scrollbar position bug that results from translateY on dropdown__menu
+.dropdown__menu__scroll {
+  max-height: 34rem;
+  overflow-y: auto;
+  // 1
+  transform: translate3d(0, 0, 0);
+}
+
+
+//
+// Dropdown Toggle Text
+//
+
+
+.dropdown__toggle__text {
+  .u-text-overflow;
+}
+
+
+//
+// Dropdown Toggle Caret
+//
+
+
+.dropdown__toggle__caret {
+  .icon--bump-down;
+
+  fill: currentColor;
+  height: @dropdown-chevron-size;
+  line-height: 1;
+  margin-left: @global-whitespace-xsmall;
+  min-width: @dropdown-chevron-size;
+  position: relative;
+  vertical-align: middle;
+  width: @dropdown-chevron-size;
+}
+
+
+//
+// Dropdown Toggle Icon
+//
+
+
+// only give right margin to toggle icon unless it's a child of button--icon
+.dropdown__toggle:not(.button--icon) {
+  .dropdown__toggle__icon {
+    margin-right: @global-whitespace-xsmall;
+  }
+}
+
+
+//
+// Dropdown Close
+//
+
+// 1. `.dropdown__menu` top padding + drodpown horizontal padding
+.dropdown__close {
+  position: absolute;
+  right: @dropdown-padding-horizontal;
+  top: (@dropdown-padding-vertical + @global-whitespace-xsmall); // 1
+  z-index: 1;
+}

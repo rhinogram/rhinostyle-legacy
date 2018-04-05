@@ -1,0 +1,119 @@
+//
+// Variables
+//
+
+
+@msg-border-radius: 1.125em; // 18px
+@msg-line-height: inherit;
+@msg-margin: @global-whitespace-base;
+@msg-padding: (@global-whitespace-small + (@global-whitespace-xsmall / 2)) @global-whitespace-base;
+@msg-default-bg: darken(@global-color-gray-lightest, 2%);
+@msg-primary-bg: @global-color-primary;
+@msg-note-bg: #fdf9c7;
+
+
+//
+// Component
+//
+
+
+.msg {
+  border-radius: @msg-border-radius;
+  display: inline-block;
+  hyphens: auto;
+  line-height: @msg-line-height;
+  overflow-wrap: break-word;
+  padding: @msg-padding;
+  position: relative;
+  vertical-align: middle;
+  word-wrap: break-word;
+  z-index: 1;
+
+  &:empty {
+    display: none;
+  }
+
+  a {
+    .u-text-underline;
+  }
+}
+
+
+//
+// Message Modifiers (Color)
+//
+
+
+.msg--default {
+  background: @msg-default-bg;
+
+  &::before {
+    border-color: @msg-default-bg;
+  }
+}
+
+.msg--note {
+  background: @msg-note-bg;
+
+  &::before {
+    border-color: @msg-note-bg;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+.msg--primary {
+  background: @msg-primary-bg;
+  color: @global-color-white;
+
+  &::before {
+    border-color: @msg-primary-bg;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+
+//
+// Message Modifiers (To/From)
+//
+
+// We need to work with `em` due to some scaling issues with `rem`
+.msg--inbound,
+.msg--outbound {
+  &::before {
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 1em;
+    position: absolute;
+    width: 1.5em;
+    z-index: -1;
+  }
+}
+
+.msg--inbound {
+  margin-left: 0.5em;
+
+  &::before {
+    border-bottom-right-radius: 100%;
+    border-right-style: solid;
+    border-right-width: 1em;
+    left: -0.5em;
+  }
+}
+
+.msg--outbound {
+  margin-right: 0.5em;
+
+  &::before {
+    border-bottom-left-radius: 100%;
+    border-left-style: solid;
+    border-left-width: 1em;
+    right: -0.5em;
+  }
+}

@@ -1,0 +1,15 @@
+//
+// Alerts Mixin
+//
+
+
+.mixin-alert-variant(@background) {
+  background-color: @background;
+  color: @global-color-white;
+
+  .alert__body {
+    a {
+      color: @global-color-white;
+    }
+  }
+}

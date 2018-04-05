@@ -1,0 +1,12 @@
+.publish/
+build/
+config/
+src/*
+!src/less/
+.babelrc
+.eslintrc
+.gitignore
+stylelint.config.js
+webpack.config.js
+.npmignore
+gulpfile.babel.js

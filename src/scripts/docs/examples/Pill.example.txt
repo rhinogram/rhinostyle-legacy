@@ -1,0 +1,15 @@
+class ComponentExample extends React.Component {
+  render() {
+    return (
+      <UtilityInlineGrid>
+        <Pill label="Default Pill" icon="cog" />
+        <Pill label="Default Pill" />
+        <Pill label="Default Pill Disabled" disabled />
+        <br />
+        <Pill label="Click Me" onClick={() => alert('clicked!')} />
+      </UtilityInlineGrid>
+    );
+  }
+}
+
+ReactDOM.render(<ComponentExample />, mountNode);

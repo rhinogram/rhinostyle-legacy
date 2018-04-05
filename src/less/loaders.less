@@ -1,0 +1,127 @@
+//
+// Variables
+//
+
+
+@loader-circle-color: @global-color-gray-lighter;
+@loader-circle-color-default: @global-color-gray-lighter;
+@loader-circle-size: 3.2rem;
+@loader-circle-size-small: 2.6rem;
+@loader-circle-size-large: 3.8rem;
+@loader-circle-size-xsmall: 1.6rem;
+@loader-circle-border-size: 2px;
+
+@loader-pulse-size: 0.8rem;
+
+
+//
+// Component
+//
+
+
+//
+// Loader Circle
+//
+
+
+.loader-circle {
+  border-radius: 50%;
+  border-style: solid;
+  border-width: @loader-circle-border-size;
+  border-top-color: fade(@global-background, 0) !important;
+  display: inline-flex;
+  height: @loader-circle-size;
+  position: relative;
+  transform-origin: center center;
+  width: @loader-circle-size;
+}
+
+
+//
+// Loader Circle Color Modifiers
+//
+
+
+.loader-circle--default {
+  border-color: @global-font-color-muted;
+}
+
+.loader-circle--primary {
+  border-color: @global-color-primary;
+}
+
+
+//
+// Loader Circle Size Modifiers
+//
+
+
+.loader-circle--large {
+  height: @loader-circle-size-large;
+  width: @loader-circle-size-large;
+}
+
+.loader-circle--small {
+  height: @loader-circle-size-small;
+  width: @loader-circle-size-small;
+}
+
+.loader-circle--xsmall {
+  border-width: @loader-circle-border-size;
+  height: @loader-circle-size-xsmall;
+  width: @loader-circle-size-xsmall;
+}
+
+
+//
+// Loader Pulse
+//
+
+
+.loader-pulse {
+  align-items: center;
+  display: inline-flex;
+  transform-origin: center center;
+}
+
+
+//
+// Loader Pulse Modifiers
+//
+
+
+.loader-pulse--accent {
+  .loader-pulse__pulse {
+    background: @global-color-accent;
+  }
+}
+
+.loader-pulse--default {
+  .loader-pulse__pulse {
+    background: @global-color-gray;
+  }
+}
+
+.loader-pulse--secondary {
+  .loader-pulse__pulse {
+    background: @global-color-secondary;
+  }
+}
+
+
+//
+// Loader Pulse Pulses
+//
+
+
+.loader-pulse__pulse {
+  border-radius: 50%;
+  height: @loader-pulse-size;
+  opacity: @global-opacity-disabled;
+  transform: scale(0.75);
+  width: @loader-pulse-size;
+
+  + * {
+    margin-left: @global-whitespace-small;
+  }
+}

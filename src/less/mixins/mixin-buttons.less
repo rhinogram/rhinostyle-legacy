@@ -1,0 +1,95 @@
+//
+// Buttons Mixin
+//
+
+
+.mixin-button-variant(@color; @background; @background-color; @border; @shadow: true) {
+  background: @background-color;
+  border-color: @border;
+  color: @color;
+
+  &::after {
+    background: @background;
+  }
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.is-active {
+    color: @color;
+  }
+
+  & when (@shadow = true) {
+    &:active,
+    &.is-active {
+      box-shadow: @button-active-box-shadow;
+    }
+  }
+
+  .button__badge {
+    background: @color;
+    color: contrast(@color, darken(@background-color, 7.5%), @color);
+  }
+}
+
+.mixin-button-outline-variant(@color; @border; @hover-color; @hover-bg; @shadow: true) {
+  background: transparent;
+  border-color: @border;
+  color: @color;
+
+  &::after {
+    background: @hover-bg;
+    opacity: 0;
+  }
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.is-active {
+    color: @hover-color;
+
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  & when (@shadow = true) {
+    &:active,
+    &.is-active {
+      &::after {
+        box-shadow: @button-active-box-shadow;
+      }
+    }
+  }
+
+  // 1. http://lesscss.org/functions/#color-operations-contrast
+  .button__badge {
+    background: @color;
+    // 1
+    color: contrast(@color, @global-color-white, @color, 30%);
+  }
+
+  // 1. Override color on badge for reversed button
+  &.button--outline-reversed {
+    .button__badge {
+      color: @global-font-color;
+    }
+  }
+}
+
+
+//
+// Button Size
+//
+
+
+.mixin-button-size(@height; @padding-horizontal; @font-size) {
+  font-size: @font-size;
+  height: @height;
+  line-height: ~'calc(@{height} - 2px)';
+  padding: 0 @padding-horizontal;
+
+  .button__badge {
+    font-size: (@font-size - 0.2rem);
+  }
+}

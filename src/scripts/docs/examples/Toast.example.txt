@@ -1,0 +1,11 @@
+class ComponentExample extends React.Component {
+  render() {
+    return (
+      <div>
+        <Toast type="success" icon="checkmark" body="Success toast notification" />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<ComponentExample />, mountNode);

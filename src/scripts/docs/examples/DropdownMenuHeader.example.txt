@@ -1,0 +1,9 @@
+class ComponentExample extends React.Component {
+  render() {
+    return (
+      <DropdownMenuHeader label="Dropdown Menu Header" />
+    );
+  }
+}
+
+ReactDOM.render(<ComponentExample />, mountNode);

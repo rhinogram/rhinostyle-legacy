@@ -1,0 +1,26 @@
+const selectOpts = [
+  { id: 1, value: 'Option One' },
+  { id: 2, value: 'Option Two' },
+  { id: 3, value: 'Option Three' },
+  { id: 4, value: 'Option Four' },
+];
+
+class ComponentExample extends React.Component {
+  handleSelect = (name, value) => {
+    const newState = {};
+
+    newState[name] = value;
+
+    console.log(newState);
+  }
+
+  render() {
+    return (
+      <div className="site-example-selects">
+        <Select onSelect={this.handleSelect} selected={1} name="mySelect" label="Choose One" options={selectOpts} />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<ComponentExample />, mountNode);

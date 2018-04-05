@@ -1,0 +1,98 @@
+//
+// Variables
+//
+
+
+@system-alert-padding: @global-whitespace-small;
+@system-alert-text: @global-color-white;
+
+
+//
+// Component
+//
+
+
+.system-alert {
+  align-items: center;
+  color: @system-alert-text;
+  display: flex;
+  justify-content: center;
+  padding: @system-alert-padding;
+  position: relative;
+}
+
+
+//
+// System Alert Modifiers
+//
+
+
+.system-alert--danger {
+  .mixin-bg-diagonal-stripes(@global-color-danger; 96%);
+}
+
+.system-alert--default {
+  .mixin-bg-diagonal-stripes(@global-color-gray; 98%);
+}
+
+.system-alert--info {
+  .mixin-bg-diagonal-stripes(@global-color-info; 98%);
+}
+
+.system-alert--success {
+  .mixin-bg-diagonal-stripes(@global-color-success; 98%);
+}
+
+
+//
+// System Alert Body
+//
+
+
+.system-alert__body {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+
+//
+// System Alert Close
+//
+
+
+.system-alert__close {
+  margin-left: @global-whitespace-small;
+}
+
+
+//
+// System Alert Icon
+//
+
+
+.system-alert__icon {
+  font-size: @global-font-size-medium;
+  margin-right: @global-whitespace-small;
+}
+
+
+//
+// System Alert Link
+//
+
+
+.system-alert__link {
+  color: currentColor;
+  font-size: @global-font-size-small;
+  margin-left: @global-whitespace-small;
+  .u-text-underline;
+
+  &:hover,
+  &:focus {
+    color: currentColor;
+  }
+}

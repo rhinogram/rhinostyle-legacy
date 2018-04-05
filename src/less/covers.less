@@ -1,0 +1,142 @@
+//
+// Variables
+//
+
+
+@cover-zindex: 1010;
+
+
+//
+// Componeent
+//
+
+
+//
+// Cover Open State
+//
+
+
+// class added to body
+.cover-open {
+  overflow: hidden;
+}
+
+
+//
+// Cover
+//
+
+// 1. JS styles
+.cover {
+  background: @global-color-white;
+  bottom: 0;
+  display: none; // 1
+  flex-direction: column;
+  left: 0;
+  opacity: 0; // 1
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translateY(25%); // 1
+  transform-origin: center bottom;
+  z-index: @cover-zindex;
+}
+
+
+//
+// Cover Header
+//
+
+
+.cover__header {
+  background: @global-color-white;
+  border-bottom: 2px solid @global-border-color-light;
+  display: flex;
+  flex: none;
+}
+
+.cover__header__container {
+  align-items: center;
+  display: flex;
+  width: 100%;
+}
+
+.cover__header__container,
+.cover__footer__container {
+  padding: @global-whitespace-base;
+}
+
+.cover__header__close-button {
+  font-size: @global-font-size-large;
+  margin-left: auto;
+}
+
+.cover__header__title {
+  .u-text-overflow;
+
+  align-items: center;
+  display: flex;
+  line-height: @global-line-height-small;
+  margin: 0;
+}
+
+.cover__header__title__icon {
+  margin-right: @global-whitespace-small;
+}
+
+
+//
+// Cover Body
+//
+
+
+.cover__body {
+  -webkit-overflow-scrolling: touch;
+  background: @global-color-gray-lightest;
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .no-touchevents & {
+    overflow-y: auto;
+  }
+}
+
+// When we need to vertically center the content within the cover
+.cover__body--content-middle {
+  display: flex;
+
+  .cover__body__container {
+    margin: auto;
+    width: 100%;
+  }
+}
+
+.cover__body__container {
+  margin: 0 auto;
+  padding: @global-whitespace-large @global-whitespace-base;
+}
+
+.cover__body__container--small {
+  max-width: @global-screen-small-min;
+}
+
+.cover__body__container--medium {
+  max-width: @global-screen-medium-min;
+}
+
+.cover__body__container--large {
+  max-width: @global-screen-large-min;
+}
+
+
+//
+// Cover Footer
+//
+
+
+.cover__footer {
+  background: @global-color-white;
+  border-top: 1px solid @global-border-color-light;
+  flex: none;
+}
